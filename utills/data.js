@@ -1,4 +1,4 @@
-const DATA = [
+export const DATA = [
   {
     id: "A",
     title: "item 1",
@@ -120,8 +120,18 @@ const DATA = [
     uniqueId: 20,
   },
 ];
-
-const groupData = (data) => {
+function compare(a, b) {
+  if (a.uniqueId < b.uniqueId) {
+    return -1;
+  }
+  if (a.uniqueId > b.uniqueId) {
+    return 1;
+  }
+  return 0;
+}
+export const groupData = (dataArr) => {
+  const data = [...dataArr];
+  data.sort(compare);
   let ans = [],
     temp = [];
   for (let i = 0; i < data.length; i++) {

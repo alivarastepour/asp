@@ -1,24 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { DATA, groupData, groupedData } from "../utills/data";
 
 const slice = createSlice({
   name: "appSlice",
   initialState: {
-    all: [],
+    all: DATA,
     selected: [],
   },
   reducers: {
     select: (state, action) => {
       return {
-        all: state.all.filter((item) => item.uniqueId != action.payload),
+        ...state,
         selected: state.selected.concat(action.payload),
+        all: state.all.filter(
+          (el) => !action.payload.map((a) => a.uniqueId).includes(el.uniqueId)
+        ),
       };
     },
     remove: (state, action) => {
       return {
-        all: state.all.concat(action.payload),
+        ...state,
         selected: state.selected.filter(
-          (item) => item.uniqueId != action.payload
+          (el) => !action.payload.map((a) => a.uniqueId).includes(el.uniqueId)
         ),
+        all: state.all.concat(action.payload),
       };
     },
   },
