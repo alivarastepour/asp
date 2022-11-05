@@ -4,6 +4,8 @@ import Section from "./Section";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../store/slice";
 const DataSection = ({ dataType, action, items }) => {
+  const dispatch = useDispatch();
+  const data = useSelector((e) => e);
   const [show, setShow] = useState([]);
   const [selectedItems, selectItem] = useState([]);
   const handleGroupSelection = (e, items, group) => {
@@ -22,12 +24,23 @@ const DataSection = ({ dataType, action, items }) => {
       selectItem((prev) => prev.filter((i) => i.uniqueId !== item.uniqueId));
     }
   };
-  console.table(selectedItems);
+  // console.table(selectedItems);
   const handleSelectionUI = (group) => {
     if (show.includes(group))
       setShow((prev) => prev.filter((item) => item !== group));
     else setShow((prev) => prev.concat(group));
   };
+  const handleTransform = () => {
+    if (dataType === "All") {
+      dispatch(actions.select(selectedItems));
+    } else {
+      dispatch(actions.remove(selectedItems));
+    }
+    selectItem([]);
+  };
+  // items.foreach((a) => {
+  //   console.log(a[0].id);
+  // });
   return (
     <>
       <Container>
@@ -35,7 +48,13 @@ const DataSection = ({ dataType, action, items }) => {
           <h1 className="title">{dataType} Data</h1>
         </div>
         <div className="action-container">
-          <button className="action">{action}</button>
+          <button
+            className="action"
+            disabled={items.length === 0}
+            onClick={handleTransform}
+          >
+            {action}
+          </button>
         </div>
         <div>
           {items.map((item) => {
