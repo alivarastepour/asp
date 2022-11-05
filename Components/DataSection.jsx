@@ -21,17 +21,14 @@ const DataSection = ({ dataType, action, items }) => {
         <div>
           {items.map((item) => {
             return (
-              <div
+              <Section
+                key={item[0].id}
+                group={item[0].id}
+                quantity={item.length}
+                items={item}
+                selected={selected}
                 onClick={() => handleSelection(item[0].id)}
-                key={item[0].uniqueId}
-              >
-                <Section
-                  group={item[0].id}
-                  quantity={item.length}
-                  items={item}
-                  selected={selected}
-                />
-              </div>
+              />
             );
           })}
         </div>
