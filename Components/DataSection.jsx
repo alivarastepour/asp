@@ -1,13 +1,24 @@
 import { useState } from "react";
 import { Container } from "./DataSection.styles";
 import Section from "./Section";
-
+import { useSelector, useDispatch } from "react-redux";
+import { actions } from "../store/slice";
 const DataSection = ({ dataType, action, items }) => {
-  const [selected, select] = useState([]);
-  const handleSelection = (group) => {
-    if (selected.includes(group))
-      select((prev) => prev.filter((item) => item !== group));
-    else select((prev) => prev.concat(group));
+  const [show, setShow] = useState([]);
+  const [selectedItems, selectItem] = useState([]);
+  const handleGroupSelection = (e, items, group) => {
+    e.stopPropagation();
+    if (e.target.checked) {
+      selectItem((prev) => prev.concat(...items));
+    } else {
+      selectItem((prev) => prev.filter((item) => item.id !== group));
+    }
+  };
+  console.log(selectedItems);
+  const handleSelectionUI = (group) => {
+    if (show.includes(group))
+      setShow((prev) => prev.filter((item) => item !== group));
+    else setShow((prev) => prev.concat(group));
   };
   return (
     <>
@@ -26,8 +37,11 @@ const DataSection = ({ dataType, action, items }) => {
                 group={item[0].id}
                 quantity={item.length}
                 items={item}
-                selected={selected}
-                onClick={() => handleSelection(item[0].id)}
+                selected={show}
+                onClick={() => handleSelectionUI(item[0].id)}
+                handleGroupSelection={(e) =>
+                  handleGroupSelection(e, item, item[0].id)
+                }
               />
             );
           })}
