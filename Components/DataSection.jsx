@@ -1,7 +1,14 @@
+import { useState } from "react";
 import { Container } from "./DataSection.styles";
 import Section from "./Section";
 
 const DataSection = ({ dataType, action, items }) => {
+  const [selected, select] = useState([]);
+  const handleSelection = (group) => {
+    if (selected.includes(group))
+      select((prev) => prev.filter((item) => item !== group));
+    else select((prev) => prev.concat(group));
+  };
   return (
     <>
       <Container>
@@ -14,12 +21,17 @@ const DataSection = ({ dataType, action, items }) => {
         <div>
           {items.map((item) => {
             return (
-              <Section
+              <div
+                onClick={() => handleSelection(item[0].id)}
                 key={item[0].uniqueId}
-                group={item[0].id}
-                quantity={item.length}
-                items={item}
-              />
+              >
+                <Section
+                  group={item[0].id}
+                  quantity={item.length}
+                  items={item}
+                  selected={selected}
+                />
+              </div>
             );
           })}
         </div>

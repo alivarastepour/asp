@@ -1,6 +1,6 @@
 import { Container } from "./Section.styles";
 
-const Section = ({ group, quantity, items }) => {
+const Section = ({ group, quantity, items, selected }) => {
   return (
     <>
       <Container>
@@ -9,10 +9,10 @@ const Section = ({ group, quantity, items }) => {
         <div>
           <input type="checkbox" />
         </div>
-        {false && (
+        {selected.includes(group) && (
           <div>
             {items.map((a) => (
-              <div>{a.uniqueId}</div>
+              <div key={a.uniqueId}>{a.uniqueId}</div>
             ))}
           </div>
         )}
