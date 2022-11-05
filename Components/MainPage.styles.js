@@ -5,7 +5,6 @@ export const Container = styled.div`
   height: 100%;
   margin: 0;
   padding: 0;
-  border: 1px solid black;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -13,6 +12,10 @@ export const Container = styled.div`
   font-family: sans-serif;
 
   .section {
-    border: 1px solid black;
+    width: 40%;
+    min-width: 500px;
+    height: 100%;
+    border-radius: 10px;
+    background-color: #e0e0e0;
   }
 `;
