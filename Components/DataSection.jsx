@@ -7,14 +7,22 @@ const DataSection = ({ dataType, action, items }) => {
   const [show, setShow] = useState([]);
   const [selectedItems, selectItem] = useState([]);
   const handleGroupSelection = (e, items, group) => {
-    e.stopPropagation();
     if (e.target.checked) {
-      selectItem((prev) => prev.concat(...items));
+      selectItem((prev) =>
+        prev.concat(...items.filter((item) => !selectedItems.includes(item)))
+      );
     } else {
       selectItem((prev) => prev.filter((item) => item.id !== group));
     }
   };
-  console.log(selectedItems);
+  const handleSoloSelection = (e, item) => {
+    if (e.target.checked) {
+      selectItem((prev) => prev.concat(item));
+    } else {
+      selectItem((prev) => prev.filter((i) => i.uniqueId !== item.uniqueId));
+    }
+  };
+  console.table(selectedItems);
   const handleSelectionUI = (group) => {
     if (show.includes(group))
       setShow((prev) => prev.filter((item) => item !== group));
@@ -42,6 +50,8 @@ const DataSection = ({ dataType, action, items }) => {
                 handleGroupSelection={(e) =>
                   handleGroupSelection(e, item, item[0].id)
                 }
+                handleSoloSelection={handleSoloSelection}
+                selectedItems={selectedItems}
               />
             );
           })}

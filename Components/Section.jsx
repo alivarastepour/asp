@@ -8,25 +8,38 @@ const Section = ({
   selected,
   onClick,
   handleGroupSelection,
+  handleSoloSelection,
+  selectedItems,
 }) => {
-
   return (
     <>
       <Container onClick={onClick}>
         <div className="group">{group}</div>
         <div>quantity: {quantity}</div>
         <div>
-          <input type="checkbox" onClick={handleGroupSelection} />
+          <input
+            type="checkbox"
+            onChange={handleGroupSelection}
+            onClick={(e) => e.stopPropagation()}
+            checked={
+              items.length ===
+              selectedItems.filter((b) => b.id === group).length
+            }
+          />
         </div>
       </Container>
       {selected.includes(group) && (
         <Wrapper>
-          {items.map((a) => (
-            <div key={a.uniqueId} className="item">
-              <div>#{a.uniqueId}</div>
-              <div>{a.created}</div>
+          {items.map((item) => (
+            <div key={item.uniqueId} className="item">
+              <div>#{item.uniqueId}</div>
+              <div>{item.created}</div>
               <div>
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  onChange={(e) => handleSoloSelection(e, item)}
+                  checked={selectedItems.includes(item)}
+                />
               </div>
             </div>
           ))}
