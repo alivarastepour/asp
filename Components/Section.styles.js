@@ -8,6 +8,7 @@ export const Container = styled.div`
   margin: 10px;
   border-radius: 5px;
   background-color: white;
+  cursor: pointer;
 
   .group {
     display: flex;
