@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Container } from "../styles/DataSection.styles";
 
-import Section from "../../Section";
+import Section from "../../Section/Section";
 
 const DataSection = ({
   dataType,
