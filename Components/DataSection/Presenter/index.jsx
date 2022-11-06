@@ -1,46 +1,26 @@
 import { useState } from "react";
-import { Container } from "./DataSection.styles";
-import Section from "./Section";
-import { useSelector, useDispatch } from "react-redux";
-import { actions } from "../store/slice";
-const DataSection = ({ dataType, action, items }) => {
-  const dispatch = useDispatch();
-  const data = useSelector((e) => e);
+
+import { Container } from "../styles/DataSection.styles";
+
+import Section from "../../Section";
+
+const DataSection = ({
+  dataType,
+  action,
+  items,
+  handleGroupSelection,
+  handleSoloSelection,
+  selectedItems,
+  handleTransform,
+}) => {
   const [show, setShow] = useState([]);
-  const [selectedItems, selectItem] = useState([]);
-  const handleGroupSelection = (e, items, group) => {
-    if (e.target.checked) {
-      selectItem((prev) =>
-        prev.concat(...items.filter((item) => !selectedItems.includes(item)))
-      );
-    } else {
-      selectItem((prev) => prev.filter((item) => item.id !== group));
-    }
-  };
-  const handleSoloSelection = (e, item) => {
-    if (e.target.checked) {
-      selectItem((prev) => prev.concat(item));
-    } else {
-      selectItem((prev) => prev.filter((i) => i.uniqueId !== item.uniqueId));
-    }
-  };
-  // console.table(selectedItems);
+
   const handleSelectionUI = (group) => {
     if (show.includes(group))
       setShow((prev) => prev.filter((item) => item !== group));
     else setShow((prev) => prev.concat(group));
   };
-  const handleTransform = () => {
-    if (dataType === "All") {
-      dispatch(actions.select(selectedItems));
-    } else {
-      dispatch(actions.remove(selectedItems));
-    }
-    selectItem([]);
-  };
-  // items.foreach((a) => {
-  //   console.log(a[0].id);
-  // });
+
   return (
     <>
       <Container>
@@ -50,7 +30,7 @@ const DataSection = ({ dataType, action, items }) => {
         <div className="action-container">
           <button
             className="action"
-            disabled={items.length === 0}
+            disabled={selectedItems.length === 0}
             onClick={handleTransform}
           >
             {action}

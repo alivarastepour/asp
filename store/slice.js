@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { DATA, groupData, groupedData } from "../utills/data";
+import { DATA } from "../utills/data";
 
 const slice = createSlice({
   name: "appSlice",
