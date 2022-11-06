@@ -24,6 +24,7 @@ const Section = ({
           }
         />
       </div>
+      <div>{selected.includes(group) ? <>&#8593;</> : <>&#8595;</>}</div>
     </Container>
     {selected.includes(group) && (
       <Wrapper>
