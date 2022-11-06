@@ -13,9 +13,11 @@ const DataSection = ({
   selectedItems,
   handleTransform,
 }) => {
-  const [show, setShow] = useState([]);
+  // note that UI related states are hold in presenter
+  const [show, setShow] = useState([]); // holds the value of expanded groups
 
   const handleSelectionUI = (group) => {
+    // handles expanding groups
     if (show.includes(group))
       setShow((prev) => prev.filter((item) => item !== group));
     else setShow((prev) => prev.concat(group));

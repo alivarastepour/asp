@@ -1,3 +1,6 @@
+/**
+ * original dataset
+ */
 export const DATA = [
   {
     id: "A",
@@ -120,15 +123,23 @@ export const DATA = [
     uniqueId: 20,
   },
 ];
-function compare(a, b) {
-  if (a.uniqueId < b.uniqueId) {
-    return -1;
-  }
-  if (a.uniqueId > b.uniqueId) {
-    return 1;
-  }
+/**
+ *
+ * @param a first object to compare
+ * @param b second object to compare
+ * @returns returns a value based on the comparison
+ */
+const compare = (a, b) => {
+  if (a.uniqueId < b.uniqueId) return -1;
+  if (a.uniqueId > b.uniqueId) return 1;
   return 0;
-}
+};
+
+/**
+ *
+ * @param dataArr an array of custom objects(DATA here)
+ * @returns returns an array containing arrays of object grouped by id
+ */
 export const groupData = (dataArr) => {
   const data = [...dataArr];
   data.sort(compare);
