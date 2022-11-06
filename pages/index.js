@@ -1,4 +1,4 @@
-import MainPage from "../Components/MainPage";
+import MainPageContainer from "../Components/MainPage/Container";
 
 import { Provider } from "react-redux";
 import { store } from "../store/store";
@@ -6,7 +6,7 @@ import { store } from "../store/store";
 const Home = () => {
   return (
     <Provider store={store}>
-      <MainPage />
+      <MainPageContainer />
     </Provider>
   );
 };
