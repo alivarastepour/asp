@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { DATA } from "../utills/data";
 
 const slice = createSlice({
@@ -29,5 +30,4 @@ const slice = createSlice({
   },
 });
 
-export const reducer = slice.reducer;
-export const actions = slice.actions;
+export const { reducer, actions } = slice;
